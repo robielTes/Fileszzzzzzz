@@ -8,6 +8,25 @@
 "use strict";
 
 const FileNotFoundException =  require('../FileHelper/FileNotFoundException');
+const Fs = require('fs')
+const Path = require('path')
 
 module.exports = class FileHelper {
+
+    //region private attributes
+    #path;
+    #name;
+    #artists;
+    //endregion private attributes
+
+    //region public methods
+
+    constructor(path, name) {
+        if(!Fs.existsSync(Path.join(__dirname, "{path}/{name}"))){
+            throw new FileNotFoundException('file could not found');
+        }
+        this.#path = path;
+        this.#name = name;
+
+    }
 }

@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/robielcpnv/Fileszzzzzzz/issues"
   },
-  "homepage": "https://github.com/robielcpnv/Fileszzzzzzz#readme"
+  "homepage": "https://github.com/robielcpnv/Fileszzzzzzz#readme",
+  "devDependencies": {
+    "jest": "^27.5.1"
+  }
 }
