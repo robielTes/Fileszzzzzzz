@@ -1,2 +1,2 @@
-module.exports = class FileNotFoundException extends Error{
+module.exports = class EmptyFileException extends Error{
 }

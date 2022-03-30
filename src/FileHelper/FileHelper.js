@@ -7,26 +7,27 @@
 
 "use strict";
 
-const FileNotFoundException =  require('../FileHelper/FileNotFoundException');
+const FileNotFoundException = require('../FileHelper/FileNotFoundException');
+const EmptyFileException = require('../FileHelper/EmptyFileException');
 const Fs = require('fs')
 const Path = require('path')
 
 module.exports = class FileHelper {
 
     //region private attributes
-    #path;
-    #name;
-    #artists;
+    #fullFileName;
     //endregion private attributes
 
     //region public methods
 
-    constructor(path, name) {
-        if(!Fs.existsSync(Path.join(__dirname, "{path}/{name}"))){
+    constructor(filePath, fileName) {
+        this.#fullFileName = Path.join(filePath, fileName)
+        if (!Fs.existsSync(this.#fullFileName)) {
             throw new FileNotFoundException('file could not found');
         }
-        this.#path = path;
-        this.#name = name;
-
+        if (!Fs.statSync(this.#fullFileName).size) {
+            throw new EmptyFileException('File is empty!');
+        }
     }
 }
+
