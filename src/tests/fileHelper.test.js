@@ -12,6 +12,7 @@ const FileNotFoundException = require('../FileHelper/FileNotFoundException');
 const EmptyFileException = require('../FileHelper/EmptyFileException');
 const Fs = require('fs')
 const Path = require('path')
+
 let fileName = "testFile.csv";
 let path = __dirname;
 let fullFileName = Path.join(path, fileName)
@@ -39,6 +40,7 @@ test('Constructor_InexistingFile_ThrowException', () => {
     //exception thrown
 
 })
+
 /// This test validates the constructor's behavior.
 /// Test case : File is empty.
 test('Constructor_FileEmpty_ThrowException', () => {
@@ -49,5 +51,28 @@ test('Constructor_FileEmpty_ThrowException', () => {
 
     //then
     //exception thrown
+
+})
+
+/// This test validates the extract method, via the lines accessors.
+test('Constructor_NominalCase_Success', () =>  {
+    //given
+    //refer to Init() method
+    let expectedAmountOfLines = 20;
+    let actualAmountOfLines = 0;
+
+    Fs.writeFileSync(fullFileName, '');
+
+    for (let i = 0; i < expectedAmountOfLines; i++)
+    {
+        Fs.appendFileSync(fullFileName, `${i} \n`);
+    }
+
+    let file =  Fs.readFileSync(fullFileName);
+    actualAmountOfLines = file.toString().split('\n').length-1;
+
+    //then
+
+    expect(expectedAmountOfLines).toEqual(actualAmountOfLines);
 
 })
