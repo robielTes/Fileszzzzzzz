@@ -55,7 +55,7 @@ test('Constructor_FileEmpty_ThrowException', () => {
 })
 
 /// This test validates the extract method, via the lines accessors.
-test('Constructor_NominalCase_Success', () =>  {
+test('Constructor_NominalCase_Success', () => {
     //given
     //refer to Init() method
     let expectedAmountOfLines = 20;
@@ -63,16 +63,38 @@ test('Constructor_NominalCase_Success', () =>  {
 
     Fs.writeFileSync(fullFileName, '');
 
-    for (let i = 0; i < expectedAmountOfLines; i++)
-    {
+    for (let i = 0; i < expectedAmountOfLines; i++) {
         Fs.appendFileSync(fullFileName, `${i} \n`);
     }
 
-    let file =  Fs.readFileSync(fullFileName);
-    actualAmountOfLines = file.toString().split('\n').length-1;
+    let file = Fs.readFileSync(fullFileName);
+    actualAmountOfLines = file.toString().split('\n').length - 1;
 
     //then
 
     expect(expectedAmountOfLines).toEqual(actualAmountOfLines);
+
+})
+
+/// This test validates the Split method's behavior.
+/// Test case : One big file (400 lines) splitted in two files (200 lines each)
+test('Split_OnlyOneBigFile_Success', () => {
+
+    //given
+    //refer to Init()
+    let amountOfLinesInOriginalFile = 400;
+    let expectedAmountOfResultFiles = 2;
+    let expectedLinesPerFiles = amountOfLinesInOriginalFile / expectedAmountOfResultFiles;
+
+    Fs.writeFileSync(fullFileName, '');
+
+    for (let i = 0; i < amountOfLinesInOriginalFile; i++) {
+        Fs.appendFileSync(fullFileName, `${i} \n`);
+    }
+
+
+    //then
+    expect(expectedAmountOfResultFiles).toEqual(listOfFilesResult.Length);
+
 
 })
