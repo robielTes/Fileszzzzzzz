@@ -87,14 +87,23 @@ test('Split_OnlyOneBigFile_Success', () => {
     let expectedLinesPerFiles = amountOfLinesInOriginalFile / expectedAmountOfResultFiles;
 
     Fs.writeFileSync(fullFileName, '');
+   
 
     for (let i = 0; i < amountOfLinesInOriginalFile; i++) {
         Fs.appendFileSync(fullFileName, `${i} \n`);
     }
 
 
-    //then
-    expect(expectedAmountOfResultFiles).toEqual(listOfFilesResult.Length);
+    //splite the original file into two files
+    for (let i = 0; i < expectedAmountOfResultFiles; i++) {
+        Fs.writeFileSync(Path.join(path, `testFile${i}.csv`),Fs.readFileSync(fullFileName).toString().split(expectedLinesPerFiles)[i]);
+    }
 
+    //delete the original file
+    Fs.unlinkSync(fullFileName);
+
+    
+    //then
+    expect(expectedAmountOfResultFiles).toEqual(listOfFilesResult);
 
 })
