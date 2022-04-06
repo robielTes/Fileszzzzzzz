@@ -103,6 +103,14 @@ test('Split_OnlyOneBigFile_Success', () => {
     Fs.unlinkSync(fullFileName);
 
     
+    //count file that end with .csv
+    let listOfFilesResult = 0;  
+    let files = Fs.readdirSync(path);
+    for (let i = 0; i < files.length; i++) {
+        if (files[i].endsWith('.csv')) {
+            listOfFilesResult++;
+        } 
+    }
     //then
     expect(expectedAmountOfResultFiles).toEqual(listOfFilesResult);
 
